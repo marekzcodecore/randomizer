@@ -1,0 +1,70 @@
+<!-- block-level element -->
+<nav>
+    <a href="/">link: </a>
+</nav>
+<hr>
+<form action="/" method="post" >
+<div>
+  
+  <div >
+   
+    <div>
+      <label for ="names" style="font-weight:bold"> Names </label><br>
+	<textarea id="names" type="text" name="names" style="width:1000px; height:100px"></textarea>
+    </div>
+	<div>
+	 <label for ="names" style="font-weight:bold">Method</label>
+	<input type="radio" name="method" value="team_count" checked="checked"> Team Count
+        <input type="radio" name="method" value="per_team"> Number Per Team
+        </div>
+    <div>
+	<br>
+      <label style="font-weight:bold">Number</label><br>
+	<input type="text" name="number" style="width:1000px">
+    </div>
+  
+    <div>
+	<br>
+	<input type="submit" value="Submit">
+    </div>
+  </div>
+
+  <%# serve up static files:
+      CSS & images %>
+</div>
+
+<div>
+ <% #if @number.to_i > @names_array.length %>
+	
+ <% #end %>
+
+ 	
+ <% if @method == "team_count" %>
+        	<% for i in 1..@number.to_i %> 
+	          <div class="col-md-2"> <h2> <%= i %> </h2> 
+		  <% for j in 0..@size.to_i %>
+			<% if (j+1)%@number.to_i == i%@number.to_i %>
+		        <div> <%= @names_array[j] %> </div>
+			<% end %>
+		  <% end %>
+		  </div>
+	 	<% end %>
+ <% else %>
+	<% @trunc = @size.to_f/@number.to_i %>
+ 	
+	<% for i in 1..@trunc.ceil %>
+	  <div class="col-md-2"> <h2> <%= i %> </h2>
+         <% for j in 0..@number.to_i - 1 %>
+		<div> <%= @names_array[j+(i-1)*@number.to_i] %> </div>
+	 <% end %>
+	 </div>
+     	 <% end %>
+ <% end %>
+
+<!--<p> names are <%= @names %> </p>
+<!--<p> method is <%= @method %>  </p>
+<p> random array is <%= @names_array %>
+<p> number is <%= @number %> -->
+</div>
+
+</form>
